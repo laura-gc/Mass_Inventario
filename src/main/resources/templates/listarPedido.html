@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head th:replace="plantilla/template :: head">
+	<meta charset="UTF-8">	
+</head>
+<body>
+	<header th:replace="plantilla/template :: header"></header>
+<!-- 	<div class="container"> -->
+		<div>
+		<br><br>
+		<h1 style="text-align: center;background-color: #04423E;color: white;">Pedidos</h1>
+		<a th:href="@{/crearPedido}" class="btn btn-primary">Agregar Nuevo Pedido</a>
+		<table class="table">
+			<thead 	style="background-color:#aa6307; color: white;">
+				<tr>
+					<th>ID</th>
+					<th>Usuario</th>
+					<th>Proveedor</th>
+					<th>Tienda</th>
+					<th>Total Costo</th>
+					<th>Fecha Pedido</th>
+					<th></th>
+				</tr>				
+			</thead>
+			<tbody>
+				<tr th:each="pedido:${pedido}">
+					<td th:text="${pedido.idPedido}"></td>
+					<td th:text="${pedido.Usuario.Nombres}+${compra.Usuario.Apellidos}"></td>
+					<td th:text="${pedido.proveedores.RazonSocial}"></td>
+					<td th:text="${pedido.Tienda.Nombre}"></td>
+					<td th:text="${pedido.TotalCosto}"></td>
+					<td th:text="${pedido.FechaPedido}"></td>
+					<td>
+						<a th:href="@{/editarPedido/}+${pedido.idPedido}" class="btn btn-warning">Editar</a>
+						<a th:href="@{/eliminarPedido/}+${pedido.idPedido}" class="btn btn-danger">Eliminar</a>
+						<a href="#" class="btn btn-info">Ver Detalle del pedido</a>
+					</td>
+				</tr>				
+			</tbody>
+		</table>
+	</div>
+	<footer th:replace="plantilla/template :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head th:replace="plantilla/template :: head">	
+</head>
+<body>
+	<header th:replace="plantilla/template :: header"></header>
+    
+	<div class="background">
+	   <div class="menu">
+	     <a th:href="@{/listarUsuario}" class="menu-item">
+			<img src="iconos/usuarios.png" alt="Empleados Icono" class="icon">Empleados
+		</a>
+	     <a th:href="@{/listarCategoria}"class="menu-item">
+			<img src="iconos/categorias.png" alt="Categorías Icono" class="icon">Categorías
+		</a>
+	     <a th:href="@{/listarProductos}" class="menu-item">
+			<img src="iconos/productos.png" alt="Productos Icono" class="icon"> Productos
+		</a>
+	     <a th:href="@{/listarPedido}" class="menu-item">
+			<img src="iconos/pedidos.png" alt="Pedidos Icono" class="icon"> Pedidos
+		</a>
+	   </div>
+	 </div>
+	
+	<footer th:replace="plantilla/template :: footer"></footer>
+</body>
+</html>
