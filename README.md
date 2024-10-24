@@ -1,2 +1,2 @@
-# MarketPeru
-Sistema de administracion de inventario para un supermercado
+# Tiendas Mass Inventarios
+Sistema para el reabastecimiento de los productos
