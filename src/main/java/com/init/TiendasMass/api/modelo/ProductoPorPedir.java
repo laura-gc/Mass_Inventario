@@ -22,10 +22,6 @@ public class ProductoPorPedir  extends Productos {
 	        this.cantidad = cantidad;
 	    }
 
-	   /* public void aumentarCantidad() {
-	        this.cantidad++;
-	    }*/
-
 	    public Float getCantidad() {
 	        return cantidad;
 	    }
