@@ -12,12 +12,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.init.TiendasMass.api.interfaces.IPedido;
+import com.init.TiendasMass.api.interfaces.IProductoRecibido;
+import com.init.TiendasMass.api.interfaces.IProductos;
 import com.init.TiendasMass.api.interfacesservice.IPedidoService;
 import com.init.TiendasMass.api.interfacesservice.IProveedoresService;
 import com.init.TiendasMass.api.interfacesservice.ITiendaService;
 import com.init.TiendasMass.api.interfacesservice.IUsuarioService;
 import com.init.TiendasMass.api.modelo.Pedido;
+import com.init.TiendasMass.api.modelo.ProductoRecibido;
+import com.init.TiendasMass.api.modelo.Productos;
 import com.init.TiendasMass.api.modelo.Proveedores;
 import com.init.TiendasMass.api.modelo.Tienda;
 import com.init.TiendasMass.api.modelo.Usuario;
@@ -37,6 +43,15 @@ public class ControladorPedido {
 	
 	@Autowired
 	private ITiendaService tiendaService;
+	
+	@Autowired
+	private IProductos prodata;
+	
+	@Autowired
+	private IProductoRecibido prdata;
+	
+	@Autowired 
+	private IPedido pedidodata;
 	
 	
 	//Para ir a la lista de todo los registros
@@ -92,6 +107,32 @@ public class ControladorPedido {
 	@GetMapping("eliminarPedido/{idPedido}")
 	public String eliminarPedido(Model model,@PathVariable int idPedido) {
 		service.eliminarPedido(idPedido);
+		return "redirect:/listarPedido";
+	}
+	
+	@GetMapping("confirmarPedido/{idPedido}")
+	public String confirmarPedido(Model model,@PathVariable int idPedido, RedirectAttributes redirectAttrs) {
+	
+		Pedido pedido = pedidodata.findById(idPedido).orElseGet(null);
+		
+		for (ProductoRecibido productoRecibido : prdata.findAllByPedido(pedido)) { 
+			        
+			        Productos p = prodata.findFirstByCodigo(productoRecibido.getCodigo());
+			        if (p == null) continue; // Si es nulo o no existe, ignoramos el siguiente código con continue
+			        // Le restamos existencia
+			        p.sumarExistencia(productoRecibido.getCantidad());
+			        // Lo guardamos con la existencia ya sumada
+			        prodata.save(p);
+			        // Se elimina el producto de guía
+			        prdata.deleteById(productoRecibido.getId());
+			    }
+		pedido.setEstado("Recibido");
+		pedidodata.save(pedido);
+		
+		redirectAttrs
+        .addFlashAttribute("mensaje", "Pedido recibido correctamente")
+        .addFlashAttribute("clase", "success");
+		
 		return "redirect:/listarPedido";
 	}
 	

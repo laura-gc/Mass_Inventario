@@ -141,32 +141,6 @@ public class ControladorProductoPedido {
 	            .addFlashAttribute("clase", "success");
 	    return "redirect:/listarPedido";
 	} 
-	
-	@GetMapping("confirmarPedido/{idPedido}")
-	public String confirmarPedido(Model model,@PathVariable int idPedido, RedirectAttributes redirectAttrs) {
-	
-		Pedido pedido = pedidodata.findById(idPedido).orElseGet(null);
-		
-		for (ProductoRecibido productoRecibido : prdata.findAllByPedido(pedido)) { 
-			        
-			        Productos p = data.findFirstByCodigo(productoRecibido.getCodigo());
-			        if (p == null) continue; // Si es nulo o no existe, ignoramos el siguiente código con continue
-			        // Le restamos existencia
-			        p.sumarExistencia(productoRecibido.getCantidad());
-			        // Lo guardamos con la existencia ya sumada
-			        data.save(p);
-			        // Se elimina el producto de guía
-			        prdata.deleteById(productoRecibido.getId());
-			    }
-		pedido.setEstado("Recibido");
-		pedidodata.save(pedido);
-		
-		redirectAttrs
-        .addFlashAttribute("mensaje", "Pedido recibido correctamente")
-        .addFlashAttribute("clase", "success");
-		
-		return "redirect:/listarPedido";
-	}
 }
 
 
