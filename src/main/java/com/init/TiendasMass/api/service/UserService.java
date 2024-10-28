@@ -21,6 +21,7 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	IUser userRepositorio;
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
