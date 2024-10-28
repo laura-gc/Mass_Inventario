@@ -29,22 +29,4 @@ public class ProveedoresService implements IProveedoresService{
 		// TODO Auto-generated method stub
 		return data.findById(idProveedor);
 	}
-	
-	//Guardar un nuevo registro
-	@Override
-	public int guardarProveedor(Proveedores p) {
-		int rs=0;
-		Proveedores proveedor=data.save(p);
-		if (proveedor.equals(null)) {
-			rs=1;
-		}
-		return rs;
-	}
-
-	//Eliminar un registro
-	@Override
-	public void eliminarProveedor(int idProveedor) {
-		data.deleteById(idProveedor);
-	}
-
 }

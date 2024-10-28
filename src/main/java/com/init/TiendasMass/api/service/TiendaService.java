@@ -27,20 +27,4 @@ public class TiendaService implements ITiendaService{
 		// TODO Auto-generated method stub
 		return data.findById(idTienda);
 	}
-
-	@Override
-	public int guardarTienda(Tienda t) {
-		int rs=0;
-		Tienda tienda=data.save(t);
-		if (tienda.equals(null)) {
-			rs=1;
-		}
-		return rs;
-	}
-
-	@Override
-	public void eliminarTienda(int idTienda) {
-		data.deleteById(idTienda);
-	}
-
 }
