@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.init.TiendasMass.api.interfacesservice.ICategoriasService;
 import com.init.TiendasMass.api.modelo.Categorias;
@@ -27,7 +26,7 @@ public class ControladorCategorias {
 	
 	//Para ir a la lista de todo los registros
     @Secured({ "ROLE_ADMIN"})
-	@RequestMapping(value = "listarCategoria",method = RequestMethod.GET)
+	@GetMapping("listarCategoria")
 	public String listarCategoria(Model model) {
 		List<Categorias>categorias=service.BuscarTodosCategorias();
 		model.addAttribute("categorias", categorias);
@@ -35,7 +34,7 @@ public class ControladorCategorias {
 	}
 	
 	//Para ir a crear nuevo registro
-	@RequestMapping(value = "crearCategoria",method = RequestMethod.GET)
+	@GetMapping("crearCategoria")
 	public String crearCategoria(Model model) {
 		model.addAttribute("categoria", new  Categorias());
 		return "crearCategoria";

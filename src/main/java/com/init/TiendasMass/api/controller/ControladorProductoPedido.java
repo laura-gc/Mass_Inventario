@@ -66,7 +66,7 @@ public class ControladorProductoPedido {
 	    Productos productoBuscadoPorCodigo = data.findFirstByCodigo(producto.getNombre());
 	    if (productoBuscadoPorCodigo == null) {
 	        redirectAttrs
-	                .addFlashAttribute("mensaje", "El producto con ese nombre " + producto.getCodigo() + " no existe")
+	                .addFlashAttribute("mensaje", "El producto con ese nombre " + producto.getNombre() + " no existe")
 	                .addFlashAttribute("clase", "warning");
 	        return "redirect:/pedido";
 	    }
@@ -122,7 +122,7 @@ public class ControladorProductoPedido {
 	        return "redirect:/listarPedido";
 	    }
 	    Pedido v = pedidodata.save(new Pedido());
-	  
+	   
 	    for (ProductoPorPedir productoPorPedir : carrito) { 
 	        
 	        Productos p = data.findById(productoPorPedir.getIdProducto()).orElse(null);
