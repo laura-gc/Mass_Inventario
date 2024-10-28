@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.init.TiendasMass.api.interfaces.IUser;
 import com.init.TiendasMass.api.interfaces.IUsuario;
 import com.init.TiendasMass.api.interfacesservice.IUsuarioService;
+import com.init.TiendasMass.api.modelo.User;
 import com.init.TiendasMass.api.modelo.Usuario;
 
 @Service
@@ -17,6 +19,8 @@ public class UsuarioService implements IUsuarioService{
 	@Autowired//Permite inyectar una dependencia con otra
 	private IUsuario data;
 
+	@Autowired
+	private IUser userdata;
 	
 	@Override
 	public List<Usuario> BuscarTodosUsuario() {
@@ -51,7 +55,14 @@ public class UsuarioService implements IUsuarioService{
 		usuario.setFechaRegistro(u.getFechaRegistro()); 
 				
 				
-		Usuario usuariocreado = data.save(usuario);		 
+		Usuario usuariocreado = data.save(usuario);	
+		
+		User user = new User();
+		
+		user.setUsername(u.getUsuario());
+		user.setPassword(clave);
+		user.setEnabled(false);
+		userdata.save(user);
 		
 		if (usuariocreado.equals(null)) { 
 			rs=1;
