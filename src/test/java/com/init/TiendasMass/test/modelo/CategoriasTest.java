@@ -6,7 +6,7 @@ import com.init.TiendasMass.api.modelo.Categorias;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class categoriasTest {
+public class CategoriasTest {
 
 	@Test
 	void test()
@@ -17,8 +17,8 @@ public class categoriasTest {
 		categorias.setDescripcion("Solo");
 		categorias.setFechaRegistro(null);
 		
-		assertEquals(1, categorias.getIdCategoria());
-		assertEquals("Descripción", categorias.getClass());
-		assertEquals("Fecha de Registro", categorias.getFechaRegistro());
+		assertEquals(40, categorias.getIdCategoria());
+		assertEquals("Solo", categorias.getDescripcion());
+		assertEquals(null, categorias.getFechaRegistro());
 	}
 }
