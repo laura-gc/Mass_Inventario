@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Usuario")
-public class Usuario {
+@Table(name = "Trabajador")
+public class Trabajador {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int IdUsuario;
@@ -103,11 +103,11 @@ public class Usuario {
 		FechaRegistro = fechaRegistro;
 	}
 
-	public Usuario() {
+	public Trabajador() {
 		super();
 	}
 
-	public Usuario(int idUsuario, String nombres, String apellidos, String correo, String usuario, String clave,
+	public Trabajador(int idUsuario, String nombres, String apellidos, String correo, String usuario, String clave,
 			String tipo_Documento, Tienda tienda, Date fechaRegistro) {
 		super();
 		IdUsuario = idUsuario;

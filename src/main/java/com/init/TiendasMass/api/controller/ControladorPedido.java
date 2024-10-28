@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.init.TiendasMass.api.interfaces.IPedido;
@@ -20,13 +19,13 @@ import com.init.TiendasMass.api.interfaces.IProductos;
 import com.init.TiendasMass.api.interfacesservice.IPedidoService;
 import com.init.TiendasMass.api.interfacesservice.IProveedoresService;
 import com.init.TiendasMass.api.interfacesservice.ITiendaService;
-import com.init.TiendasMass.api.interfacesservice.IUsuarioService;
+import com.init.TiendasMass.api.interfacesservice.ITrabajadorService;
 import com.init.TiendasMass.api.modelo.Pedido;
 import com.init.TiendasMass.api.modelo.ProductoRecibido;
 import com.init.TiendasMass.api.modelo.Productos;
 import com.init.TiendasMass.api.modelo.Proveedores;
 import com.init.TiendasMass.api.modelo.Tienda;
-import com.init.TiendasMass.api.modelo.Usuario;
+import com.init.TiendasMass.api.modelo.Trabajador;
 
 @Controller
 @RequestMapping
@@ -36,7 +35,7 @@ public class ControladorPedido {
 	private IPedidoService service;
 	
 	@Autowired
-	private IUsuarioService usuarioService;
+	private ITrabajadorService trabajadorService;
 	
 	@Autowired
 	private IProveedoresService proveedoresService;
@@ -55,7 +54,7 @@ public class ControladorPedido {
 	
 	
 	//Para ir a la lista de todo los registros
-	@RequestMapping(value = "listarPedido",method = RequestMethod.GET)
+	@GetMapping("listarPedido")
 	public String listarPedidos(Model model) {
 		List<Pedido>pedidos=service.BuscarTodosPedido();
 		model.addAttribute("pedidos", pedidos);
@@ -63,11 +62,11 @@ public class ControladorPedido {
 	}
 			
 	//Para ir a crear nuevo registro con FK
-	@RequestMapping(value = "/crearPedido", method = RequestMethod.GET)
+	@GetMapping("/crearPedido")
 	public String crearPedido(Model model) {
 		Pedido pedido =new Pedido();
 		
-		List<Usuario> listadoUsuario=usuarioService.BuscarTodosUsuario();		
+		List<Trabajador> listadoUsuario=trabajadorService.BuscarTodosTrabajador();		
 		List<Proveedores> listadoProveedores=proveedoresService.BuscarTodosProveedores();		
 		List<Tienda> listadoTienda=tiendaService.BuscarTodosTienda();		
 		
@@ -91,7 +90,7 @@ public class ControladorPedido {
 	public String editarPedido(@PathVariable int idPedido,Model model) {
 		Optional<Pedido>pedido=service.BuscarPorIdPedido(idPedido);
 		
-		List<Usuario> listadoUsuario=usuarioService.BuscarTodosUsuario();		
+		List<Trabajador> listadoUsuario=trabajadorService.BuscarTodosTrabajador();		
 		List<Proveedores> listadoProveedores=proveedoresService.BuscarTodosProveedores();		
 		List<Tienda> listadoTienda=tiendaService.BuscarTodosTienda();		
 		

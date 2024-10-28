@@ -7,8 +7,8 @@
 	<header th:replace="plantilla/template :: header"></header>
 		<div style="padding: 50px;">
 		<br><br><br>
-		<h1 style="text-align: center;color: black;">EMPLEADOS</h1>
-		<a th:href="@{/crearUsuario}" class="btn btn-primary">Agregar Nuevo Empleado</a><br><br>
+		<h1 style="text-align: center;color: black;">TRABAJADORES</h1>
+		<a th:href="@{/crearTrabajador}" class="btn btn-primary">Agregar Nuevo Trabajador</a><br><br>
 		<table class="table">
 			<thead style="background-color:#8b0000; color: white;">
 				<tr>
@@ -34,8 +34,8 @@
 					<td th:text="${usuario.tienda.nombre}"></td> 
 					<td th:text="${usuario.FechaRegistro}"></td>
 					<td>
-						<a th:href="@{/editarUsuario/}+${usuario.idUsuario}" class="btn btn-warning">Editar</a>
-						<a th:href="@{/eliminarUsuario/}+${usuario.idUsuario}" class="btn btn-danger">Eliminar</a>
+						<a th:href="@{/editarTrabajador/}+${usuario.idUsuario}" class="btn btn-warning">Editar</a>
+						<a th:href="@{/eliminarTrabajador/}+${usuario.idUsuario}" class="btn btn-danger">Eliminar</a>
 
 					</td>
 				</tr>				

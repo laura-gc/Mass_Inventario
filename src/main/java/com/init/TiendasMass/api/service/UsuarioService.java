@@ -8,54 +8,54 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.init.TiendasMass.api.interfaces.IUser;
-import com.init.TiendasMass.api.interfaces.IUsuario;
-import com.init.TiendasMass.api.interfacesservice.IUsuarioService;
+import com.init.TiendasMass.api.interfaces.ITrabajador;
+import com.init.TiendasMass.api.interfacesservice.ITrabajadorService;
 import com.init.TiendasMass.api.modelo.User;
-import com.init.TiendasMass.api.modelo.Usuario;
+import com.init.TiendasMass.api.modelo.Trabajador;
 
 @Service
-public class UsuarioService implements IUsuarioService{
+public class UsuarioService implements ITrabajadorService{
 
 	@Autowired//Permite inyectar una dependencia con otra
-	private IUsuario data;
+	private ITrabajador data;
 
 	@Autowired
 	private IUser userdata;
-	
+	 
 	@Override
-	public List<Usuario> BuscarTodosUsuario() {
-		return (List<Usuario>)data.findAll();
-	}
- 
-	@Override
-	public Optional<Usuario> BuscarPorIdUsuario(int idUsuario) {
+	public Optional<Trabajador> BuscarPorIdUsuario(int idUsuario) {
 		// TODO Auto-generated method stub
 		return data.findById(idUsuario);
 	} 
 
 	@Override
-	public int guardarUsuario(Usuario u) {
+	public List<Trabajador> BuscarTodosTrabajador() {
+		
+		return (List<Trabajador>)data.findAll();
+	}
 
+	@Override
+	public int guardarTrabajador(Trabajador u) {
 		
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
-       
+	       
 		String clave = bCryptPasswordEncoder.encode(u.getClave());
 		int rs=0;
 
-		Usuario usuario = new Usuario();
+		Trabajador trabajador = new Trabajador();
 		
-		usuario.setIdUsuario(u.getIdUsuario());
-		usuario.setNombres(u.getNombres());
-		usuario.setApellidos(u.getApellidos());
-		usuario.setCorreo(u.getCorreo()); 
-		usuario.setUsuario(u.getUsuario());
-		usuario.setClave(clave);
-		usuario.setTipo_Documento(u.getTipo_Documento());
-		usuario.setTienda(u.getTienda());
-		usuario.setFechaRegistro(u.getFechaRegistro()); 
+		trabajador.setIdUsuario(u.getIdUsuario());
+		trabajador.setNombres(u.getNombres());
+		trabajador.setApellidos(u.getApellidos());
+		trabajador.setCorreo(u.getCorreo()); 
+		trabajador.setUsuario(u.getUsuario());
+		trabajador.setClave(clave);
+		trabajador.setTipo_Documento(u.getTipo_Documento());
+		trabajador.setTienda(u.getTienda());
+		trabajador.setFechaRegistro(u.getFechaRegistro()); 
 				
 				
-		Usuario usuariocreado = data.save(usuario);	
+		Trabajador usuariocreado = data.save(trabajador);	
 		
 		User user = new User();
 		
@@ -68,10 +68,11 @@ public class UsuarioService implements IUsuarioService{
 			rs=1;
 		}
 		return rs;
+		
 	}
 
 	@Override
-	public void eliminarUsuario(int idUsuario) {
+	public void eliminarTrabajador(int idUsuario) {
 		// TODO Auto-generated method stub
 		data.deleteById(idUsuario);
 	}

@@ -7,10 +7,10 @@
 	<br><br><br><br>
 	<div class="container mt-4">
 		<div class="col-sm-12">
-			<form th:action="@{/guardarUsuario}" th:object=${usuario} method="POST">
+			<form th:action="@{/guardarTrabajador}" th:object=${usuario} method="POST">
 				<div class="card" style="background-color: #D9D9D9; border-radius: 5%;">
 					<div class="card-header">
-						<h1 style="text-align: center;">EMPLEADOS</h1>
+						<h1 style="text-align: center;">TRABAJADOR</h1>
 					</div>
 					<div class="card-body" style="border-radius: 5%;">
 						<div class="form-group">
@@ -57,7 +57,7 @@
 					</div>
 					<div class="card-footer" style="align-items: center;text-align: center; border-radius: 5%;">
 						<input type="submit" value="Guardar" class="btn btn-success"/>
-						<a th:href="@{/listarUsuario}" class="btn btn-warning">Volver</a>		
+						<a th:href="@{/listarTrabajador}" class="btn btn-warning">Volver</a>		
 					</div>
 				</div>
 			</form>

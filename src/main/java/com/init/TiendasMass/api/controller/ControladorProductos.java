@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.init.TiendasMass.api.interfacesservice.ICategoriasService;
 import com.init.TiendasMass.api.interfacesservice.IProductosService;
@@ -34,7 +33,7 @@ public class ControladorProductos {
 	private IProveedoresService proveedorService;
 	
 	//Para ir a la lista de todo los registros
-	@RequestMapping(value = "listarProductos",method = RequestMethod.GET)
+	@GetMapping("listarProductos")
 	public String listarProductos(Model model) {
 		List<Productos>productos=service.BuscarTodosProductos();
 		model.addAttribute("productos", productos);
@@ -42,7 +41,7 @@ public class ControladorProductos {
 	}
 	
 	//Para ir a crear nuevo registro con FK
-		@RequestMapping(value = "/crearProducto", method = RequestMethod.GET)
+		@GetMapping("/crearProducto")
 		public String crearProducto(Model model) {
 			Productos productos =new Productos();
 			

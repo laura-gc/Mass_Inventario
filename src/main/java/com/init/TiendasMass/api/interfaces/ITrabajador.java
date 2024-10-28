@@ -3,9 +3,9 @@ package com.init.TiendasMass.api.interfaces;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.init.TiendasMass.api.modelo.Usuario;
+import com.init.TiendasMass.api.modelo.Trabajador;
 
 @Repository
-public interface IUsuario extends CrudRepository<Usuario, Integer>{
+public interface ITrabajador extends CrudRepository<Trabajador, Integer>{
 
 }

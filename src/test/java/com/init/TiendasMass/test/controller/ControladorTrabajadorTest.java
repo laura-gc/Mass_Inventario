@@ -9,21 +9,21 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.ui.Model;
 
-import com.init.TiendasMass.api.controller.ControladorUsuario;
-import com.init.TiendasMass.api.interfaces.IUsuario;
-import com.init.TiendasMass.api.interfacesservice.IUsuarioService;
+import com.init.TiendasMass.api.controller.ControladorTrabajador;
+import com.init.TiendasMass.api.interfaces.ITrabajador;
+import com.init.TiendasMass.api.interfacesservice.ITrabajadorService;
 
 @ExtendWith(MockitoExtension.class)
-public class ControladorUsuarioTest {
+public class ControladorTrabajadorTest {
 	
 	@InjectMocks
-	private ControladorUsuario conUser;
+	private ControladorTrabajador conUser;
 	
 	@Mock
-	private IUsuario dataUsurio;
+	private ITrabajador dataUsurio;
 	
 	@Mock
-	private IUsuarioService service;
+	private ITrabajadorService service;
 	
 	@Mock
 	Model model;
@@ -32,7 +32,7 @@ public class ControladorUsuarioTest {
 	void test()
 	{
 		
-		String user = conUser.listarUsuario(model);
+		String user = conUser.listarTrabajador(model);
 		
 		assertNotNull(user);
 	}
