@@ -19,8 +19,8 @@ public class PedidoService implements IPedidoService{
 	@Override
 	public List<Pedido> BuscarTodosPedido() {
 		
-		return (List<Pedido>)data.findAll();
-	}
+		return (List<Pedido>)data.findByEstado("Pendiente");
+	} 
 
 	@Override
 	public Optional<Pedido> BuscarPorIdPedido(int idPedido) {

@@ -20,6 +20,7 @@ public class Tienda {
 	private String Direccion;
 	private String Telefono;
 	private Date FechaRegistro;
+	
 	public int getIdTienda() {
 		return IdTienda;
 	}

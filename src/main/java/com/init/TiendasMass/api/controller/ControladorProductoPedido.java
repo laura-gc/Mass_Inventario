@@ -1,6 +1,7 @@
 package com.init.TiendasMass.api.controller;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -121,19 +122,15 @@ public class ControladorProductoPedido {
 	    if (carrito == null || carrito.size() <= 0) {
 	        return "redirect:/listarPedido";
 	    }
-	    Pedido v = pedidodata.save(new Pedido());
-	   
-	    for (ProductoPorPedir productoPorPedir : carrito) { 
-	        
-	        Productos p = data.findById(productoPorPedir.getIdProducto()).orElse(null);
-	        if (p == null) continue; // Si es nulo o no existe, ignoramos el siguiente código con continue
-	        // Le restamos existencia
-	        p.sumarExistencia(productoPorPedir.getCantidad());
-	        // Lo guardamos con la existencia ya restada
-	        data.save(p);
-	        // Creamos un nuevo producto que será el que se guarda junto con la recepcion 
-	        ProductoRecibido productoRecibido = new ProductoRecibido(productoPorPedir.getCantidad(), productoPorPedir.getPrecio(), productoPorPedir.getNombre(), productoPorPedir.getCodigo(), v);
-	        // Y lo guardamos
+	    
+	    Pedido pro = new Pedido();
+	    pro.setEstado("Pendiente");
+	    pedidodata.save(pro);
+	    
+	    for (ProductoPorPedir productoPorPedir : carrito) { 	  
+	    	
+	        ProductoRecibido productoRecibido = new ProductoRecibido(productoPorPedir.getCantidad(), productoPorPedir.getPrecio(), productoPorPedir.getNombre(), productoPorPedir.getCodigo(), pro);
+	        //lo guardamos
 	        prdata.save(productoRecibido);
 	    }
 
@@ -145,6 +142,32 @@ public class ControladorProductoPedido {
 	            .addFlashAttribute("clase", "success");
 	    return "redirect:/listarPedido";
 	} 
+	
+	@GetMapping("confirmarPedido/{idPedido}")
+	public String confirmarPedido(Model model,@PathVariable int idPedido, RedirectAttributes redirectAttrs) {
+	
+		Pedido pedido = pedidodata.findById(idPedido).orElseGet(null);
+		
+		for (ProductoRecibido productoRecibido : prdata.findAllByPedido(pedido)) { 
+			        
+			        Productos p = data.findFirstByCodigo(productoRecibido.getCodigo());
+			        if (p == null) continue; // Si es nulo o no existe, ignoramos el siguiente código con continue
+			        // Le restamos existencia
+			        p.sumarExistencia(productoRecibido.getCantidad());
+			        // Lo guardamos con la existencia ya sumada
+			        data.save(p);
+			        // Se elimina el producto de guía
+			        prdata.deleteById(productoRecibido.getId());
+			    }
+		pedido.setEstado("Recibido");
+		pedidodata.save(pedido);
+		
+		redirectAttrs
+        .addFlashAttribute("mensaje", "Pedido recibido correctamente")
+        .addFlashAttribute("clase", "success");
+		
+		return "redirect:/listarPedido";
+	}
 }
 
 

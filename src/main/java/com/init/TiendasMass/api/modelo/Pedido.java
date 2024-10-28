@@ -15,6 +15,8 @@ public class Pedido {
 
 	private String fechaYHora;
 	
+	private String estado;
+	
 	 @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
 	    private Set<ProductoRecibido> productos;
 	
@@ -54,7 +56,14 @@ public class Pedido {
         this.fechaYHora = fechaYHora;
     }
 
-    public Set<ProductoRecibido> getProductos() {
+    
+    public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	public Set<ProductoRecibido> getProductos() {
         return productos;
     }
 
