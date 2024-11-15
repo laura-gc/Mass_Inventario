@@ -3,6 +3,8 @@ package com.init.TiendasMass.api.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,7 +60,7 @@ public class ControladorProductos {
 		
 		//Para guardar el nuevo registro y ir a listar
 		@PostMapping("guardarProducto")
-		public String guardarProducto(@ModelAttribute Productos p,Model model) {
+		public String guardarProducto(@ModelAttribute Productos p,Model model) throws MessagingException {
 			service.guardarProducto(p);
 			return "redirect:/listarProductos";
 		}
