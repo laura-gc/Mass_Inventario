@@ -7,22 +7,26 @@
     
 	<div class="alert-container">
 	        <h2 style="text-align: center;color: black;">Alertas</h2>
-	        <form style="display: flex; flex-direction: column; align-items: center;">
-	            <label for="email" style="font-size: 18px; margin-bottom: 10px; display: block; width: 100%;">Correo donde va a recibir la alerta:</label>
-	            <input type="email" id="email" name="email" placeholder="Ingrese su correo" required>
+	        <form 			th:action="@{/crearAlertas}" th:object=${alertas} method="POST" style="display: flex; flex-direction: column; align-items: center;">
+	            
+				<div class="form-group">
+					<input th:field="*{idAlertas}" type="hidden" class="form-control"/>
+				</div>
+				<label for="email" style="font-size: 18px; margin-bottom: 10px; display: block; width: 100%;">Correo donde va a recibir la alerta:</label>
+	            <input type="email" h:field="*{correo}" name="correo" placeholder="Ingrese su correo" required>
 	
 	            <div class="stock-config">
 	                <div class="stock-option">
 	                    <label for="min-stock">Mínimo de stock:</label>
-	                    <input type="number" id="min-stock" name="min-stock" min="1">
+	                    <input type="number" h:field="*{minStock}" name="minStock" min="1">
 	                </div>
 	                <div class="stock-option">
 	                    <label for="max-stock">Máximo de stock:</label>
-	                    <input type="number" id="max-stock" name="max-stock" min="1">
+	                    <input type="number" h:field="*{maxStock}" name="maxStock" min="1">
 	                </div>
 	            </div>
 	
-	            <button type="submit">Guardar Configuración</button>
+	            <button type="submit" >Guardar Configuración</button>
 	        </form>
 	    </div>
 	

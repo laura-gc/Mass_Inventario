@@ -8,9 +8,11 @@ import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.init.TiendasMass.api.interfaces.IAlertas;
 import com.init.TiendasMass.api.interfaces.IProductos;
 import com.init.TiendasMass.api.interfacesservice.IEmailService;
 import com.init.TiendasMass.api.interfacesservice.IProductosService;
+import com.init.TiendasMass.api.modelo.Alertas;
 import com.init.TiendasMass.api.modelo.Email;
 import com.init.TiendasMass.api.modelo.Productos;
 
@@ -18,11 +20,14 @@ import com.init.TiendasMass.api.modelo.Productos;
 public class ProductosService implements IProductosService{
 
 
-	@Autowired//Permite inyectar una dependencia con otra
+	@Autowired
 	private IProductos data;
 	
 	@Autowired
-	IEmailService emailService;
+	private IAlertas alertasData;
+	
+	@Autowired
+	private IEmailService emailService;
 	
 	@Override
 	public List<Productos> BuscarTodosProductos() {
@@ -39,16 +44,29 @@ public class ProductosService implements IProductosService{
 	@Override
 	public int guardarProducto(Productos p) throws MessagingException {
 		
-		p.setCodigo(p.getNombre());					
+		p.setCodigo(p.getNombre());		
+		
+		
+		Alertas a = alertasData.findById(2).orElse(null);
 			
 			try {
-				if(p.getExistencia() < 10 || p.getExistencia() > 100) {
+				if(p.getExistencia() <= a.getMinStock()) {
 				
 					Email email = new Email();
 					
-					email.setDestinatario("La.gc2204@gmail.com");
-					email.setAsunto("Estado del stock");
-					email.setMensaje("El producto" + p.getNombre() + "tiene un stock de: " + p.getExistencia());
+					email.setDestinatario(a.getCorreo());
+					email.setAsunto("¡Estado mínimo del stock!");
+					email.setMensaje("El producto '" + p.getNombre() + "' tiene un stock de: " + p.getExistencia());
+					emailService.sendMail(email);
+				}
+				
+				if(p.getExistencia() >= a.getMaxStock()) {
+					
+					Email email = new Email();
+					
+					email.setDestinatario(a.getCorreo());
+					email.setAsunto("¡Estado máximo del stock!");
+					email.setMensaje("El producto '" + p.getNombre() + "' tiene un stock de: " + p.getExistencia());
 					emailService.sendMail(email);
 				}
 			} catch (Exception e) {
