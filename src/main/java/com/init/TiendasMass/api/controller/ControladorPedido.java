@@ -121,9 +121,7 @@ public class ControladorPedido {
 			        // Le restamos existencia
 			        p.sumarExistencia(productoRecibido.getCantidad());
 			        // Lo guardamos con la existencia ya sumada
-			        prodata.save(p);
-			        // Se elimina el producto de guía
-			        prdata.deleteById(productoRecibido.getId());
+			        prodata.save(p);		     
 			    }
 		pedido.setEstado("Recibido");
 		pedidodata.save(pedido);
