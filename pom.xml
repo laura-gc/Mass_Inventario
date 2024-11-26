@@ -101,12 +101,6 @@
     			<artifactId>snakeyaml</artifactId>
     			<version>2.0</version>
           </dependency>
-	  <dependency>
-    		<groupId>ch.qos.logback</groupId>
-    		<artifactId>logback-classic</artifactId>
-    		<version>1.2.9</version>
-    		<scope>test</scope>
-        </dependency>
 	<dependency>
     		<groupId>net.minidev</groupId>
     		<artifactId>json-smart</artifactId>
