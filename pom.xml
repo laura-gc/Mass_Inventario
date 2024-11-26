@@ -116,7 +116,7 @@
 	<dependency>
     		<groupId>org.springframework</groupId>
     		<artifactId>spring</artifactId>
-    		<version>5.3.34</version>
+    		<version>5.3.38</version>
     		<type>pom</type>
 	</dependency>
 	</dependencies>
