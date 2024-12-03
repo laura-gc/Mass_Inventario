@@ -2,7 +2,6 @@ package com.init.TiendasMass.api.service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +43,6 @@ public class ProductosService implements IProductosService{
 	@Override
 	public int guardarProducto(Productos p) throws MessagingException {
 
-		 Logger logger = Logger.getLogger(guardarProducto.class.getName());
 		p.setCodigo(p.getNombre());		
 		
 		
@@ -72,8 +70,6 @@ public class ProductosService implements IProductosService{
 				}
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
-				logger.severe("Error al enviar correo electrónico: " + e.getMessage());
-        			logger.log(java.util.logging.Level.SEVERE, "Detalles de la excepción", e);
         			throw new MessagingException("Hubo un problema al enviar el correo.", e);
 			}
 	
