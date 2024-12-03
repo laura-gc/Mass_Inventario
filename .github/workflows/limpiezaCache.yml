@@ -1,0 +1,13 @@
+name: Limpieza de Cache
+on:
+  schedule:
+    - cron: "0 0 1 * *" # Ejecuta el primer día de cada mes
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove unused caches
+        run: |
+          gh api repos/:owner/:repo/actions/caches \
+          --paginate --jq '.actions_caches[] | select(.last_accessed_at < (now - (30*24*60*60))) | .id' \
+          | xargs -I {} gh api repos/:owner/:repo/actions/caches/{} -X DELETE

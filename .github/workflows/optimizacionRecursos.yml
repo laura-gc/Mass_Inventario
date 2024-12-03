@@ -1,0 +1,11 @@
+name: Optimizacion de recursos
+on:
+  schedule:
+    - cron: "0 0 * * 1" # Corre semanalmente
+jobs:
+  check-large-files:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check Large Files
+        uses: elastic/large-files-checker-action@v1
